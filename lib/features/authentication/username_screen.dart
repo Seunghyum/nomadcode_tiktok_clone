@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nomadcode_tiktok_clone/constants/gaps.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
+import 'package:nomadcode_tiktok_clone/features/authentication/email_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
@@ -31,6 +32,12 @@ class _UsernameScreenState extends State<UsernameScreen> {
   void dispose() {
     _usernameController.dispose();
     super.dispose(); // super.dispose() 매서드는 맨 나중에
+  }
+
+  void _onTextTap() {
+    if (_username.isEmpty) return;
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const EmailScreen()));
   }
 
   @override
@@ -81,7 +88,10 @@ class _UsernameScreenState extends State<UsernameScreen> {
               ),
             ),
             Gaps.v16,
-            FormButton(disabled: _username.isEmpty)
+            GestureDetector(
+              onTap: _onTextTap,
+              child: FormButton(disabled: _username.isEmpty),
+            )
           ],
         ),
       ),
