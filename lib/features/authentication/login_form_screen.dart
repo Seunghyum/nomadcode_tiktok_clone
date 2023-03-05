@@ -20,11 +20,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        print(formData.values);
-        Navigator.of(context).push(
+        Navigator.of(context).pushAndRemoveUntil(
+          // 화면을 맨 위 올리고 나머지 뒤에 있는 화면들을 처리할 수 있음
           MaterialPageRoute(
             builder: (context) => const InterestsScreen(),
           ),
+          (route) => false,
         );
       }
     }
