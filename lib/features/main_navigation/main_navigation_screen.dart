@@ -4,6 +4,7 @@ import 'package:nomadcode_tiktok_clone/constants/gaps.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
 import 'package:nomadcode_tiktok_clone/features/main_navigation/widgets/nav_tab.dart';
 import 'package:nomadcode_tiktok_clone/features/main_navigation/widgets/post_video_button.dart';
+import 'package:nomadcode_tiktok_clone/features/videos/video_timeline_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -41,9 +42,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         // 안보이지만 앱상에서는 존재하게끔 만들어 주는 위젯
         Offstage(
           offstage: _selectedIndex != 0,
-          child: const Center(
-            child: Text("home"),
-          ),
+          child: const VideoTimelineScreen(),
         )
       ]),
       bottomNavigationBar: BottomAppBar(
