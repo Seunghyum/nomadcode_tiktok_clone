@@ -17,6 +17,7 @@ class VideoPost extends StatefulWidget {
 
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
+  // 하나의 애니메이션을 실행하기 위한 Ticker(시계)를 제공받기 위함. vsync: this 를 하기 위함.
   final VideoPlayerController _videoPlayerController =
       VideoPlayerController.asset('assets/videos/IMG_0200.mp4');
   late AnimationController _animationController;
@@ -49,10 +50,6 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
-    _animationController.addListener(() {
-      // reverse, forward 하는 모든 순간에 실행. build 매서드가 animation 할 때를 알려주기 위해
-      setState(() {});
-    });
   }
 
   @override
@@ -102,8 +99,14 @@ class _VideoPostState extends State<VideoPost>
           Positioned.fill(
             child: IgnorePointer(
               child: Center(
-                child: Transform.scale(
-                  scale: _animationController.value,
+                child: AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _animationController.value,
+                      child: child,
+                    );
+                  },
                   child: AnimatedOpacity(
                     opacity: _isPaused ? 1 : 0,
                     duration: _animationDuration,
