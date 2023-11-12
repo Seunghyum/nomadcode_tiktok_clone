@@ -87,7 +87,9 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onTapSeeMore() {
-    _isSeeMore = !_isSeeMore;
+    setState(() {
+      _isSeeMore = !_isSeeMore;
+    });
   }
 
   @override
@@ -121,7 +123,7 @@ class _VideoPostState extends State<VideoPost>
                     );
                   },
                   child: AnimatedOpacity(
-                    opacity: _isPaused ? 1 : 0,
+                    opacity: _isPaused ? 0 : 1,
                     duration: _animationDuration,
                     child: const FaIcon(
                       FontAwesomeIcons.play,
