@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nomadcode_tiktok_clone/constants/gaps.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+
+const String shortText = "#go";
+const String longText =
+    "#googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap";
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
@@ -18,9 +23,10 @@ class VideoPost extends StatefulWidget {
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
   // 하나의 애니메이션을 실행하기 위한 Ticker(시계)를 제공받기 위함. vsync: this 를 하기 위함.
-  final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset('assets/videos/IMG_0200.mp4');
+  late VideoPlayerController _videoPlayerController =
+      VideoPlayerController.asset('assets/videos/video1.mp4');
   late AnimationController _animationController;
+  bool _isSeeMore = false;
 
   bool _isPaused = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
@@ -34,9 +40,12 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
+    _videoPlayerController =
+        VideoPlayerController.asset('assets/videos/video1.mp4');
     await _videoPlayerController.initialize();
-    setState(() {});
+    await _videoPlayerController.setLooping(true);
     _videoPlayerController.addListener(_onVideoChange);
+    setState(() {});
   }
 
   @override
@@ -75,6 +84,10 @@ class _VideoPostState extends State<VideoPost>
     setState(() {
       _isPaused = !_isPaused;
     });
+  }
+
+  void _onTapSeeMore() {
+    _isSeeMore = !_isSeeMore;
   }
 
   @override
@@ -118,6 +131,70 @@ class _VideoPostState extends State<VideoPost>
                   ),
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            bottom: 40,
+            left: 10,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "@Dave",
+                  style: TextStyle(
+                    fontSize: Sizes.size20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Gaps.v10,
+                const Row(
+                  children: [
+                    Text(
+                      "영상 설명입니다",
+                      style: TextStyle(
+                        fontSize: Sizes.size16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Gaps.h10,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Expanded(
+                    // child:
+                    GestureDetector(
+                      child: Text((_isSeeMore == true ? longText : shortText),
+                          style: const TextStyle(
+                            fontSize: Sizes.size16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1),
+                    ),
+                    // ),
+                    if (_isSeeMore == false)
+                      GestureDetector(
+                        onTap: _onTapSeeMore,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: const Text(
+                            'See More',
+                            style: TextStyle(
+                              fontSize: Sizes.size16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
             ),
           )
         ],
