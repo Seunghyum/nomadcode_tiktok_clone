@@ -5,7 +5,6 @@ import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-const String shortText = "#go";
 const String longText =
     "#googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap";
 
@@ -135,69 +134,82 @@ class _VideoPostState extends State<VideoPost>
               ),
             ),
           ),
-          Positioned(
-            bottom: 40,
-            left: 10,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "@Dave",
-                  style: TextStyle(
-                    fontSize: Sizes.size20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(
+                  left: Sizes.size10,
+                  top: 0.0,
+                  right: Sizes.size10,
+                  bottom: Sizes.size40,
                 ),
-                Gaps.v10,
-                const Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "영상 설명입니다",
+                    const Text(
+                      "@Dave",
                       style: TextStyle(
-                        fontSize: Sizes.size16,
+                        fontSize: Sizes.size20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ],
-                ),
-                Gaps.h10,
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Expanded(
-                    // child:
-                    GestureDetector(
-                      child: Text((_isSeeMore == true ? longText : shortText),
-                          style: const TextStyle(
+                    Gaps.v10,
+                    const Row(
+                      children: [
+                        Text(
+                          "영상 설명입니다",
+                          style: TextStyle(
                             fontSize: Sizes.size16,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1),
+                        ),
+                      ],
                     ),
-                    // ),
-                    if (_isSeeMore == false)
-                      GestureDetector(
-                        onTap: _onTapSeeMore,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: const Text(
-                            'See More',
-                            style: TextStyle(
-                              fontSize: Sizes.size16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                    Gaps.h10,
+                    Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            child: Text(
+                              longText,
+                              style: const TextStyle(
+                                fontSize: Sizes.size16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow:
+                                  _isSeeMore ? TextOverflow.ellipsis : null,
+                              maxLines: _isSeeMore ? 3 : 1,
+                              softWrap: false,
                             ),
                           ),
                         ),
-                      ),
+                        if (!_isSeeMore)
+                          Flexible(
+                            child: GestureDetector(
+                              onTap: _onTapSeeMore,
+                              child: Container(
+                                child: const Text(
+                                  ' ... See More',
+                                  style: TextStyle(
+                                    fontSize: Sizes.size16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+              )
+            ],
           )
         ],
       ),
