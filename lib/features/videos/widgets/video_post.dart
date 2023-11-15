@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nomadcode_tiktok_clone/constants/gaps.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
+import 'package:nomadcode_tiktok_clone/features/main_navigation/widgets/navigation_tool_button.dart';
+import 'package:nomadcode_tiktok_clone/features/videos/widgets/video_button.dart';
+import 'package:nomadcode_tiktok_clone/features/videos/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 const String longText =
-    "#googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap #googlemap";
+    "#googlemap #googlem #google #goog #googlemapweqwsadsazxcz #googlemap #googlemap #googlemap #googlemap #googlemap";
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
@@ -67,7 +70,9 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
-    if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
+    if (info.visibleFraction == 1 &&
+        !_isPaused &&
+        !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
     }
   }
@@ -89,6 +94,17 @@ class _VideoPostState extends State<VideoPost>
     setState(() {
       _isSeeMore = !_isSeeMore;
     });
+  }
+
+  void _onCommentsTap(context) async {
+    if (_videoPlayerController.value.isPlaying) _onTogglePause();
+    await showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) => const VideoComments(),
+    );
+
+    _onTogglePause();
   }
 
   @override
@@ -134,82 +150,146 @@ class _VideoPostState extends State<VideoPost>
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+          Row(
             children: [
-              Container(
-                padding: const EdgeInsets.only(
-                  left: Sizes.size10,
-                  top: 0.0,
-                  right: Sizes.size10,
-                  bottom: Sizes.size40,
-                ),
+              Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Text(
-                      "@Dave",
-                      style: TextStyle(
-                        fontSize: Sizes.size20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: Sizes.size10,
+                        top: 0.0,
+                        right: Sizes.size10,
+                        bottom: Sizes.size20,
                       ),
-                    ),
-                    Gaps.v10,
-                    const Row(
-                      children: [
-                        Text(
-                          "영상 설명입니다",
-                          style: TextStyle(
-                            fontSize: Sizes.size16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Gaps.h10,
-                    Row(
-                      // mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            child: Text(
-                              longText,
-                              style: const TextStyle(
-                                fontSize: Sizes.size16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow:
-                                  _isSeeMore ? TextOverflow.ellipsis : null,
-                              maxLines: _isSeeMore ? 3 : 1,
-                              softWrap: false,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "@Dave",
+                            style: TextStyle(
+                              fontSize: Sizes.size20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                        if (!_isSeeMore)
-                          Flexible(
-                            child: GestureDetector(
-                              onTap: _onTapSeeMore,
-                              child: Container(
-                                child: const Text(
-                                  ' ... See More',
-                                  style: TextStyle(
-                                    fontSize: Sizes.size16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                          Gaps.v10,
+                          const Row(
+                            children: [
+                              Text(
+                                "영상 설명입니다",
+                                style: TextStyle(
+                                  fontSize: Sizes.size16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Gaps.h10,
+                          Row(
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                child: GestureDetector(
+                                  child: Text(
+                                    longText,
+                                    style: const TextStyle(
+                                      fontSize: Sizes.size16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    overflow: _isSeeMore
+                                        ? TextOverflow.ellipsis
+                                        : null,
+                                    maxLines: _isSeeMore ? 3 : 1,
+                                    softWrap: false,
                                   ),
                                 ),
                               ),
-                            ),
+                              if (!_isSeeMore)
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: _onTapSeeMore,
+                                    child: const Text(
+                                      ' ... See More',
+                                      style: TextStyle(
+                                        fontSize: Sizes.size16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              )
+              ),
+              // const Column(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.end,
+              //       children: [
+              //         Column(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             NavigationToolButton(
+              //               title: 'AirBnb',
+              //               icon: FontAwesomeIcons.airbnb,
+              //               fontSize: 70,
+              //             ),
+              //             NavigationToolButton(
+              //               title: 'google',
+              //               icon: FontAwesomeIcons.google,
+              //               fontSize: 70,
+              //             )
+              //           ],
+              //         )
+              //       ],
+              //     )
+              //   ],
+              // )
             ],
+          ),
+          Positioned(
+            bottom: 20,
+            right: 10,
+            child: Column(
+              children: [
+                const CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  foregroundImage: NetworkImage(
+                      'https://avatars.githubusercontent.com/u/13027315?v=4'),
+                  child: Text("Dave"),
+                ),
+                Gaps.v24,
+                const VideoButton(
+                  icon: FontAwesomeIcons.solidHeart,
+                  text: "2.9M",
+                ),
+                Gaps.v24,
+                GestureDetector(
+                  onTap: () => _onCommentsTap(context),
+                  child: const VideoButton(
+                    icon: FontAwesomeIcons.solidComment,
+                    text: "33K",
+                  ),
+                ),
+                Gaps.v24,
+                const VideoButton(
+                  icon: FontAwesomeIcons.share,
+                  text: "share",
+                )
+              ],
+            ),
           )
         ],
       ),

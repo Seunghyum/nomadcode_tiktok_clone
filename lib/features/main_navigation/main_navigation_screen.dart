@@ -38,6 +38,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: _selectedIndex == 0 ? Colors.black : Colors.white,
       body: Stack(children: [
         // 안보이지만 앱상에서는 존재하게끔 만들어 주는 위젯
         Offstage(
