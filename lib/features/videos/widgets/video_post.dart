@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nomadcode_tiktok_clone/constants/gaps.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
-import 'package:nomadcode_tiktok_clone/features/main_navigation/widgets/navigation_tool_button.dart';
 import 'package:nomadcode_tiktok_clone/features/videos/widgets/video_button.dart';
 import 'package:nomadcode_tiktok_clone/features/videos/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
@@ -100,6 +99,7 @@ class _VideoPostState extends State<VideoPost>
     if (_videoPlayerController.value.isPlaying) _onTogglePause();
     await showModalBottomSheet(
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       context: context,
       builder: (context) => const VideoComments(),
     );
@@ -127,6 +127,7 @@ class _VideoPostState extends State<VideoPost>
             ),
           ),
           Positioned.fill(
+            bottom: 0,
             child: IgnorePointer(
               child: Center(
                 child: AnimatedBuilder(
