@@ -33,9 +33,9 @@ class _VideoPostState extends State<VideoPost>
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
   void _onVideoChange() {
-    final isVideoFished = _videoPlayerController.value.duration ==
+    final isVideoFinished = _videoPlayerController.value.duration ==
         _videoPlayerController.value.position;
-    if (isVideoFished) {
+    if (isVideoFinished) {
       widget.onVideoFinished();
     }
   }
@@ -45,8 +45,8 @@ class _VideoPostState extends State<VideoPost>
         VideoPlayerController.asset('assets/videos/video1.mp4');
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
-    _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
+    _videoPlayerController.addListener(_onVideoChange);
   }
 
   @override
@@ -73,6 +73,9 @@ class _VideoPostState extends State<VideoPost>
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
+    }
+    if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
+      _onTogglePause();
     }
   }
 
@@ -111,7 +114,7 @@ class _VideoPostState extends State<VideoPost>
   Widget build(BuildContext context) {
     return VisibilityDetector(
       key: Key("$widget.index"),
-      onVisibilityChanged: (info) {},
+      onVisibilityChanged: _onVisibilityChanged,
       child: Stack(
         children: [
           Positioned.fill(
@@ -139,7 +142,7 @@ class _VideoPostState extends State<VideoPost>
                     );
                   },
                   child: AnimatedOpacity(
-                    opacity: _isPaused ? 0 : 1,
+                    opacity: _isPaused ? 1 : 0,
                     duration: _animationDuration,
                     child: const FaIcon(
                       FontAwesomeIcons.play,
