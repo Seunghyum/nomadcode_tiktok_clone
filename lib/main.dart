@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
+import 'package:nomadcode_tiktok_clone/features/inbox/activitiy_screen.dart';
+import 'package:nomadcode_tiktok_clone/features/inbox/chat_detail_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/main_navigation/main_navigation_screen.dart';
 
 void main() {
@@ -18,6 +20,8 @@ class TikTokApp extends StatelessWidget {
           cursorColor: Color(0xFFE9435A),
         ),
         primaryColor: const Color(0xFFE9435A),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(
           foregroundColor: Colors.black,
@@ -30,7 +34,8 @@ class TikTokApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MainNavigationScreen(),
+      // home: const MainNavigationScreen(),
+      home: const ChatDetailScreen(),
     );
   }
 }
