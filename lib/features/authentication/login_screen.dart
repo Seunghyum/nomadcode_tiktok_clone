@@ -63,31 +63,27 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-          color: Colors.grey.shade50,
-          elevation: 2,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: Sizes.size32,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("Don't have an account?"),
-                Gaps.h5,
-                GestureDetector(
-                  onTap: () => _onSignUpTap(context),
-                  child: Text(
-                    "Sign up",
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: Sizes.size16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+        color: Colors.grey.shade50,
+        elevation: 2,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Don't have an account?"),
+            Gaps.h5,
+            GestureDetector(
+              onTap: () => _onSignUpTap(context),
+              child: Text(
+                "Sign up",
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: Sizes.size16,
+                  fontWeight: FontWeight.w600,
                 ),
-              ],
+              ),
             ),
-          )),
+          ],
+        ),
+      ),
     );
   }
 }

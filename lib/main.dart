@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
+import 'package:nomadcode_tiktok_clone/features/authentication/login_screen.dart';
+import 'package:nomadcode_tiktok_clone/features/authentication/sign_up_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/inbox/activitiy_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/inbox/chat_detail_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/main_navigation/main_navigation_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
+
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark); // 최상단 시스템 ui 색상 변경
+
   runApp(const TikTokApp());
 }
 
@@ -14,6 +26,7 @@ class TikTokApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TikTok clone',
       theme: ThemeData(
         textSelectionTheme: const TextSelectionThemeData(
@@ -34,7 +47,8 @@ class TikTokApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MainNavigationScreen(),
+      // home: const MainNavigationScreen(),
+      home: const SignUpScreen(),
     );
   }
 }
