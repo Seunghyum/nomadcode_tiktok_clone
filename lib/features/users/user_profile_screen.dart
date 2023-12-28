@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nomadcode_tiktok_clone/constants/gaps.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
+import 'package:nomadcode_tiktok_clone/features/settings/settings_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/users/widgets/persistent_tabbar.dart';
 import 'package:nomadcode_tiktok_clone/features/users/widgets/score_card.dart';
 
@@ -13,14 +14,9 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  Widget renderDivider() {
-    return VerticalDivider(
-      width: Sizes.size32,
-      thickness: Sizes.size1,
-      color: Colors.grey.shade400,
-      indent: Sizes.size14,
-      endIndent: Sizes.size14,
-    );
+  void _onGearPressed() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
   }
 
   @override
@@ -35,7 +31,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 title: const Text('Dave'),
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: _onGearPressed,
                     icon: const FaIcon(
                       FontAwesomeIcons.gear,
                       size: Sizes.size20,
@@ -276,7 +272,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             'Pinned',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: Sizes.size14,
+                              fontSize: Sizes.size12,
                               fontWeight: FontWeight.w700,
                             ),
                           ),

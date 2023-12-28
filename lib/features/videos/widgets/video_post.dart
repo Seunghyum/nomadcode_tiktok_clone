@@ -14,8 +14,11 @@ class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
   final int index;
 
-  const VideoPost(
-      {super.key, required this.onVideoFinished, required this.index});
+  const VideoPost({
+    super.key,
+    required this.onVideoFinished,
+    required this.index,
+  });
 
   @override
   State<VideoPost> createState() => _VideoPostState();
@@ -69,6 +72,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
+    if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
@@ -230,7 +234,7 @@ class _VideoPostState extends State<VideoPost>
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -271,7 +275,8 @@ class _VideoPostState extends State<VideoPost>
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                   foregroundImage: NetworkImage(
-                      'https://avatars.githubusercontent.com/u/13027315?v=4'),
+                    'https://avatars.githubusercontent.com/u/13027315?v=4',
+                  ),
                   child: Text("Dave"),
                 ),
                 Gaps.v24,
@@ -291,10 +296,10 @@ class _VideoPostState extends State<VideoPost>
                 const VideoButton(
                   icon: FontAwesomeIcons.share,
                   text: "share",
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
