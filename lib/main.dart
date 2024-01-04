@@ -15,7 +15,8 @@ void main() async {
   );
 
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.dark); // 최상단 시스템 ui 색상 변경
+    SystemUiOverlayStyle.dark,
+  ); // 최상단 시스템 ui 색상 변경
 
   runApp(const TikTokApp());
 }
@@ -28,7 +29,17 @@ class TikTokApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'TikTok clone',
+      themeMode: ThemeMode.system,
+      darkTheme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: const Color(0xFFE9435A),
+        textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
+        iconTheme: const IconThemeData(color: Colors.white),
+        brightness: Brightness.light,
+        bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade800),
+      ),
       theme: ThemeData(
+        brightness: Brightness.light,
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color(0xFFE9435A),
         ),

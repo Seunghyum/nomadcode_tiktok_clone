@@ -81,7 +81,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 for (var tab in tabs)
                   Tab(
                     text: tab,
-                  )
+                  ),
                 // ...tabs.map(
                 //   (e) => Tab(text: e),
                 // )
@@ -140,7 +140,8 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                         children: [
                           const CircleAvatar(
                             backgroundImage: NetworkImage(
-                                'https://avatars.githubusercontent.com/u/13027315?v=4'),
+                              'https://avatars.githubusercontent.com/u/13027315?v=4',
+                            ),
                             radius: 12,
                           ),
                           Gaps.h4,
@@ -163,7 +164,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -172,7 +173,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                   child: Tab(
                     text: tab,
                   ),
-                )
+                ),
             ],
           ),
         ),
