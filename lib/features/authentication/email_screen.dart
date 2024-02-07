@@ -4,7 +4,15 @@ import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/password_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/widgets/form_button.dart';
 
+class EmailScreenArgs {
+  final String username;
+
+  EmailScreenArgs({required this.username});
+}
+
 class EmailScreen extends StatefulWidget {
+  static String routeName = '/email';
+
   const EmailScreen({super.key});
 
   @override
@@ -40,7 +48,8 @@ class _EmailScreenState extends State<EmailScreen> {
     }
 
     final regExp = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    );
     if (!regExp.hasMatch(_email)) {
       return "Email not valid";
     }
@@ -53,12 +62,15 @@ class _EmailScreenState extends State<EmailScreen> {
 
   void _onSubmit() {
     if (_email.isEmpty || _isEmailValid() != null) return;
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const PasswordScreen()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const PasswordScreen()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as EmailScreenArgs;
     return GestureDetector(
       onTap: _onScaffoldTap,
       child: Scaffold(
@@ -73,9 +85,9 @@ class _EmailScreenState extends State<EmailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Gaps.v40,
-              const Text(
-                "What is your email?",
-                style: TextStyle(
+              Text(
+                "What is your email?, ${args.username}",
+                style: const TextStyle(
                   fontSize: Sizes.size24,
                   fontWeight: FontWeight.w700,
                 ),
@@ -105,8 +117,9 @@ class _EmailScreenState extends State<EmailScreen> {
               GestureDetector(
                 onTap: _onSubmit,
                 child: FormButton(
-                    disabled: _email.isEmpty || _isEmailValid() != null),
-              )
+                  disabled: _email.isEmpty || _isEmailValid() != null,
+                ),
+              ),
             ],
           ),
         ),

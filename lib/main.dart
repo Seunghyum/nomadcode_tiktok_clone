@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
+import 'package:nomadcode_tiktok_clone/features/authentication/email_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/login_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/sign_up_screen.dart';
+import 'package:nomadcode_tiktok_clone/features/authentication/username_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/inbox/activitiy_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/inbox/chat_detail_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/main_navigation/main_navigation_screen.dart';
@@ -64,8 +66,13 @@ class TikTokApp extends StatelessWidget {
           ),
         ),
       ),
-      // home: const MainNavigationScreen(),
-      home: const SignUpScreen(),
+      initialRoute: SignUpScreen.routeName,
+      routes: {
+        SignUpScreen.routeName: (context) => const SignUpScreen(),
+        UsernameScreen.routeName: (context) => const UsernameScreen(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        EmailScreen.routeName: (context) => const EmailScreen(),
+      },
     );
   }
 }
