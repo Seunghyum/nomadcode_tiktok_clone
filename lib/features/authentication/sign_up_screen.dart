@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nomadcode_tiktok_clone/constants/gaps.dart';
 import 'package:nomadcode_tiktok_clone/constants/sizes.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/login_screen.dart';
@@ -13,30 +14,11 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   void _onLoginTab(BuildContext context) {
-    Navigator.of(context).pushNamed(LoginScreen.routeName);
+    context.push(LoginScreen.routeName);
   }
 
   void _onEmailTab(BuildContext context) {
-    Navigator.of(context).pushNamed(UsernameScreen.routeName);
-    // Navigator.of(context).push(
-    //   PageRouteBuilder(
-    //     pageBuilder: (context, animation, secondaryAnimation) =>
-    //         const UsernameScreen(),
-    //     transitionDuration: const Duration(seconds: 1),
-    //     reverseTransitionDuration: const Duration(seconds: 1),
-    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-    //       final offsetAnimation =
-    //           Tween(begin: const Offset(0, -1), end: Offset.zero)
-    //               .animate(animation);
-    //       final opacityAnimation =
-    //           Tween(begin: 0.5, end: 1.0).animate(animation);
-    //       return SlideTransition(
-    //         position: offsetAnimation,
-    //         child: FadeTransition(opacity: opacityAnimation, child: child),
-    //       );
-    //     },
-    //   ),
-    // )
+    context.push(UsernameScreen.routeName);
   }
 
   @override
