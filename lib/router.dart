@@ -3,6 +3,7 @@ import 'package:nomadcode_tiktok_clone/features/authentication/email_screen.dart
 import 'package:nomadcode_tiktok_clone/features/authentication/login_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/sign_up_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/username_screen.dart';
+import 'package:nomadcode_tiktok_clone/features/users/user_profile_screen.dart';
 
 final router = GoRouter(
   routes: [
@@ -20,7 +21,18 @@ final router = GoRouter(
     ),
     GoRoute(
       path: EmailScreen.routeName,
-      builder: (context, state) => const EmailScreen(),
+      builder: (context, state) {
+        final args = state.extra as EmailScreenArgs;
+        return EmailScreen(username: args.username);
+      },
+    ),
+    GoRoute(
+      path: '/users/:username',
+      builder: (context, state) {
+        final username = state.params['username'];
+        final tab = state.queryParams['show'];
+        return UserProfileScreen(username: username!, tab: tab);
+      },
     ),
   ],
 );
