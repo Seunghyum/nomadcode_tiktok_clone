@@ -9,7 +9,8 @@ import 'package:nomadcode_tiktok_clone/features/authentication/widgets/auth_butt
 import 'package:nomadcode_tiktok_clone/utils.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static String routeName = '/';
+  static const routeURL = '/';
+  static const routeName = 'signUp';
 
   const SignUpScreen({super.key});
 
@@ -18,8 +19,7 @@ class SignUpScreen extends StatelessWidget {
   }
 
   void _onEmailTab(BuildContext context) {
-    // context.push(UsernameScreen.routeName);
-    context.push('/users/dave?show=likes');
+    context.pushNamed(UsernameScreen.routeName);
   }
 
   @override

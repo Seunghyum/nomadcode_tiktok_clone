@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/email_screen.dart';
 import 'package:nomadcode_tiktok_clone/features/authentication/login_screen.dart';
@@ -8,24 +9,49 @@ import 'package:nomadcode_tiktok_clone/features/users/user_profile_screen.dart';
 final router = GoRouter(
   routes: [
     GoRoute(
-      path: SignUpScreen.routeName,
+      name: SignUpScreen.routeName,
+      path: SignUpScreen.routeURL,
       builder: (context, state) => const SignUpScreen(),
+      routes: [
+        GoRoute(
+          path: UsernameScreen.routeURL,
+          name: UsernameScreen.routeName,
+          builder: (context, state) => const UsernameScreen(),
+          routes: [
+            GoRoute(
+              path: EmailScreen.routeURL,
+              name: EmailScreen.routeName,
+              builder: (context, state) {
+                final args = state.extra as EmailScreenArgs;
+                return EmailScreen(username: args.username);
+              },
+            ),
+          ],
+        ),
+      ],
     ),
-    GoRoute(
-      path: LoginScreen.routeName,
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: UsernameScreen.routeName,
-      builder: (context, state) => const UsernameScreen(),
-    ),
-    GoRoute(
-      path: EmailScreen.routeName,
-      builder: (context, state) {
-        final args = state.extra as EmailScreenArgs;
-        return EmailScreen(username: args.username);
-      },
-    ),
+    // GoRoute(
+    //   path: LoginScreen.routeName,
+    //   builder: (context, state) => const LoginScreen(),
+    // ),
+    // GoRoute(
+    //   path: UsernameScreen.routeName,
+    //   // builder: (context, state) => const UsernameScreen(),
+    //   pageBuilder: (context, state) {
+    //     return CustomTransitionPage(
+    //       child: const UsernameScreen(),
+    //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //         return FadeTransition(
+    //           opacity: animation,
+    //           child: ScaleTransition(
+    //             scale: animation,
+    //             child: child,
+    //           ),
+    //         );
+    //       },
+    //     );
+    //   },
+    // ),
     GoRoute(
       path: '/users/:username',
       builder: (context, state) {
